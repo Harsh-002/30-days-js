@@ -129,5 +129,49 @@ myCollection.showList();
 // Activity 5: Memoization
 
 // • Task 7: Write a function that memoizes the results of another function. Use a closure to store the results of previous computations.
+function memoize(fn) {
+  const cache = {};
+
+  return function (...args) {
+    const key = JSON.stringify(...args);
+    if (cache[key] !== undefined) {
+      console.log(`Fetching result from cache for arguments: ${key}`);
+      return cache[key];
+    } else {
+      console.log(`Computing results for arguments: ${key}`);
+      const result = fn(...args);
+      cache[key] = result;
+      return result;
+    }
+  };
+}
+
+function add(x, y) {
+  return x + y;
+}
+
+const memoizedFunction = memoize(add);
+
+console.log(memoizedFunction(1, 2));
+console.log(memoizedFunction(1, 2));
+console.log(memoizedFunction(3, 2));
+console.log(memoizedFunction(3, 2));
 
 // • Task 8: Create a memoized version of a function that calculates the factorial of a number.
+
+function factorial(n) {
+  if (n < 0) {
+    return undefined; // Factorial is not defined for negative numbers
+  } else if (n === 0 || n === 1) {
+    return 1; // The factorial of 0 and 1 is 1
+  } else {
+    return n * factorial(n - 1); // Recursive case
+  }
+}
+
+const memoizedFactorial = memoize(factorial);
+
+console.log(memoizedFactorial(5));
+console.log(memoizedFactorial(5));
+console.log(memoizedFactorial(7));
+console.log(memoizedFactorial(7));
