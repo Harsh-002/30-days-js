@@ -62,7 +62,7 @@ const async_func = async () => {
       resolve("This is a promise delayed by 3.5 seconds");
     }, 3500);
   });
-
+  //8930296005
   try {
     const data = await delay_promise;
     console.log(data);
