@@ -246,7 +246,178 @@ printer();
 
 // Activity 4: Binary Tree
 // • Task 7: Implement a TreeNode class to represent a node in a binary tree with properties value, left, and right.
+class TreeNode {
+  constructor(value, left = null, right = null) {
+    this.value = value;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+const treenode1 = new TreeNode(1);
+const treenode2 = new TreeNode(2);
+const treenode3 = new TreeNode(3);
+
+treenode1.left = treenode2;
+treenode1.right = treenode3;
+console.log(treenode1);
+
 // • Task 8: Implement a BinaryTree class with methods for inserting values and performing in-order traversal to display nodes.
+class BinaryTree {
+  constructor() {
+    this.root = null;
+  }
+
+  insert(value) {
+    const newNode = new TreeNode(value);
+    if (this.root === null) {
+      this.root = newNode;
+    } else {
+      this.insertNode(this.root, newNode);
+    }
+  }
+
+  // Helper method to insert a node into the binary tree
+  insertNode(node, newNode) {
+    if (newNode.value < node.value) {
+      if (node.left === null) {
+        node.left = newNode;
+      } else {
+        this.insertNode(node.left, newNode);
+      }
+    } else {
+      if (node.right === null) {
+        node.right = newNode;
+      } else {
+        this.insertNode(node.right, newNode);
+      }
+    }
+  }
+
+  // Method to perform in-order traversal and display nodes
+  inOrderTraversal() {
+    this.inOrder(this.root);
+  }
+
+  // Helper method to perform in-order traversal
+  inOrder(node) {
+    if (node !== null) {
+      this.inOrder(node.left);
+      console.log(node.value);
+      this.inOrder(node.right);
+    }
+  }
+}
+
+// Example usage:
+const binaryTree = new BinaryTree();
+binaryTree.insert(10);
+binaryTree.insert(5);
+binaryTree.insert(15);
+binaryTree.insert(3);
+binaryTree.insert(7);
+binaryTree.insert(13);
+binaryTree.insert(18);
+
+console.log("In-order traversal:");
+binaryTree.inOrderTraversal();
+
 // Activity 5: Graph (Optional)
 // • Task 9: Implement a Graph class with methods to add vertices, add edges, and perform a breadth-first search (BFS).
+
+class Graph {
+  constructor() {
+    this.adjacencyList = new Map();
+  }
+
+  // Method to add a vertex to the graph
+  addVertex(vertex) {
+    if (!this.adjacencyList.has(vertex)) {
+      this.adjacencyList.set(vertex, []);
+    }
+  }
+
+  // Method to add an edge to the graph
+  addEdge(vertex1, vertex2) {
+    if (this.adjacencyList.has(vertex1) && this.adjacencyList.has(vertex2)) {
+      this.adjacencyList.get(vertex1).push(vertex2);
+      this.adjacencyList.get(vertex2).push(vertex1); // Assuming an undirected graph
+    }
+  }
+
+  // Method to perform a breadth-first search (BFS)
+  bfs(startingVertex) {
+    if (!this.adjacencyList.has(startingVertex)) {
+      return "Starting vertex not found";
+    }
+
+    const visited = new Set();
+    const queue = [startingVertex];
+
+    while (queue.length > 0) {
+      const vertex = queue.shift();
+      if (!visited.has(vertex)) {
+        console.log(vertex);
+        visited.add(vertex);
+        const neighbors = this.adjacencyList.get(vertex);
+        for (const neighbor of neighbors) {
+          if (!visited.has(neighbor)) {
+            queue.push(neighbor);
+          }
+        }
+      }
+    }
+  }
+
+  // Method to perform a breadth-first search (BFS) and find the shortest path
+  bfsShortestPath(start, goal) {
+    if (!this.adjacencyList.has(start) || !this.adjacencyList.has(goal)) {
+      return "Starting or goal vertex not found";
+    }
+
+    const visited = new Set();
+    const queue = [[start]];
+    while (queue.length > 0) {
+      const path = queue.shift();
+      const vertex = path[path.length - 1];
+      if (!visited.has(vertex)) {
+        for (const neighbor of this.adjacencyList.get(vertex)) {
+          const newPath = [...path, neighbor];
+          if (neighbor === goal) {
+            return newPath;
+          }
+          queue.push(newPath);
+        }
+        visited.add(vertex);
+      }
+    }
+
+    return "No path found";
+  }
+}
+
+// Example usage:
+const graph = new Graph();
+
+// Add vertices
+graph.addVertex("A");
+graph.addVertex("B");
+graph.addVertex("C");
+graph.addVertex("D");
+graph.addVertex("E");
+
+// Add edges
+graph.addEdge("A", "B");
+graph.addEdge("A", "C");
+graph.addEdge("B", "D");
+graph.addEdge("C", "E");
+graph.addEdge("D", "E");
+
+// Perform BFS
+console.log("BFS starting from vertex A:");
+graph.bfs("A"); // Output: A B C D E (or a similar order)
+
 // • Task 10: Use the Graph class to represent a simple network and perform BFS to find the shortest path between two nodes.
+
+// Find the shortest path
+console.log("Shortest path from A to E:", graph.bfsShortestPath("A", "E"));
