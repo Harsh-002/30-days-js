@@ -6,4 +6,6 @@ Day 24 - Weather App: --> https://github.com/Harsh-002/Weather-App.git
 
 Day 25 - Movies search App: --> https://github.com/Harsh-002/Movies-Search-App.git
 
-Day 26 - Chat App:--> https://github.com/Harsh-002/Chat-App.git
+Day 26 - Chat App: --> https://github.com/Harsh-002/Chat-App.git
+
+Day 27 - Task management App: --> https://github.com/Harsh-002/Task-management-app.git
