@@ -12,4 +12,4 @@ Day 27 - Task management App: --> https://github.com/Harsh-002/Task-management-a
 
 Day 28 - E-commerce Website: --> https://github.com/Harsh-002/Ecommerce-website.git
 
-Day 29 - Social Media Dashboard: --> https://github.com/Harsh-002/Social-media-app.git
+Day 29/30 - Social Media Dashboard: --> https://github.com/Harsh-002/Social-media-app.git
